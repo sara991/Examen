@@ -1,7 +1,7 @@
 exports.calcular = (palabra) =>{
-    let par;
+    
     if(palabra=true){
-        par="Bombon";
+      let  par="Bombon";
     }
-    console.log(par ,palabra);
+    console.log(palabra+);
 };
