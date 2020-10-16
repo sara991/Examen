@@ -2,10 +2,10 @@ const express = require ("express");
 const exphbs = require ("express-handlebars");
 const bodyParser = require("body-parser");
 
+
+
+const { calcularinterescompuesto } = require("./calculointerescompuesto");
 const app= express();
-
-const { calcular } = require("./calculo");
-
 
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", "hbs");
@@ -17,22 +17,17 @@ app.get("/", (req, res, next) => {
 });
 
 
- app.post("/palabra", (req, res, next) => {
- const { numero, numero2} = req.body;
 
- calcular(numero, numero2 );
 
- res.send("Petición aceptada");
-});  
+app.post("/interes", (req, res, next) => {
+  // Asignación por destructuring
+  // https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Operadores/Destructuring_assignment
+  const { capital, años, tasaInteres } = req.body;
 
-//app.post("/prestamo", (req, res, next) => {
+  const interesses = calcularinterescompuesto(capital, años, tasaInteres);
 
-  // const { palabra } = req.body;
-
- // const cuotas = calcularMetodoFrances(monto, tasaInteres, periodo);
-
- // res.render("resultado_prestamo", { cuotas });
-//});
+  res.render("formularioresultado", { interesses });
+});
 
 
 
